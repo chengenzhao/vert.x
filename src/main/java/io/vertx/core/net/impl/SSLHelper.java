@@ -118,13 +118,13 @@ public class SSLHelper {
 
   public SSLHelper(HttpClientOptions options, KeyCertOptions keyCertOptions, TrustOptions trustOptions, List<String> applicationProtocols) {
     this(options);
-    this.sslContextFactory = new SSLProviderImpl(options, keyCertOptions, trustOptions, applicationProtocols);
+    this.sslContextFactory = new SslContextFactoryImpl(options, keyCertOptions, trustOptions, applicationProtocols);
   }
 
-  public SSLHelper(NetClientOptions options, KeyCertOptions keyCertOptions, TrustOptions trustOptions, List<String> applicationProtocols) {
+  public SSLHelper(NetClientOptions options, SslContextFactory sslContextFactory) {
     this(options);
     this.endpointIdentificationAlgorithm = options.getHostnameVerificationAlgorithm();
-    this.sslContextFactory = new SSLProviderImpl(options, keyCertOptions, trustOptions, applicationProtocols);
+    this.sslContextFactory = sslContextFactory;
   }
 
   public SSLHelper(NetServerOptions options, KeyCertOptions keyCertOptions, TrustOptions trustOptions, List<String> applicationProtocols) {
@@ -132,7 +132,7 @@ public class SSLHelper {
     this.clientAuth = options.getClientAuth();
     this.client = false;
     this.sni = options.isSni();
-    this.sslContextFactory = new SSLProviderImpl(options, keyCertOptions, trustOptions, applicationProtocols);
+    this.sslContextFactory = new SslContextFactoryImpl(options, keyCertOptions, trustOptions, applicationProtocols);
   }
 
   /**
@@ -150,7 +150,7 @@ public class SSLHelper {
     this.enabledProtocols = that.enabledProtocols;
     this.endpointIdentificationAlgorithm = that.endpointIdentificationAlgorithm;
     this.suppliedSslContext = that.suppliedSslContext;
-    this.sslContextFactory = new SSLProviderImpl((SSLProviderImpl) that.sslContextFactory);
+    this.sslContextFactory = new SslContextFactoryImpl((SslContextFactoryImpl) that.sslContextFactory);
   }
 
   public boolean isSSL() {

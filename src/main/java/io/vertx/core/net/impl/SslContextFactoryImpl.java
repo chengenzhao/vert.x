@@ -58,7 +58,7 @@ import java.util.stream.Stream;
  *
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
-public class SSLProviderImpl implements SslContextFactory {
+public class SslContextFactoryImpl implements SslContextFactory {
 
   /**
    * Resolve the ssl engine options to use for properly running the configured options.
@@ -117,7 +117,7 @@ public class SSLProviderImpl implements SslContextFactory {
   private boolean openSslSessionCacheEnabled = true;
   private volatile SSLContext suppliedSslContext;
 
-  public SSLProviderImpl(TCPSSLOptions options, KeyCertOptions keyCertOptions, TrustOptions trustOptions, List<String> applicationProtocols) {
+  public SslContextFactoryImpl(TCPSSLOptions options, KeyCertOptions keyCertOptions, TrustOptions trustOptions, List<String> applicationProtocols) {
     SSLEngineOptions sslEngineOptions = resolveEngineOptions(options);
     this.keyCertOptions = keyCertOptions;
     this.trustOptions = trustOptions;
@@ -132,7 +132,7 @@ public class SSLProviderImpl implements SslContextFactory {
   /**
    * Copy constructor, only configuration field are copied.
    */
-  public SSLProviderImpl(SSLProviderImpl that) {
+  public SslContextFactoryImpl(SslContextFactoryImpl that) {
     this.keyCertOptions = that.keyCertOptions;
     this.trustOptions = that.trustOptions;
     this.crlPaths = that.crlPaths;
